@@ -11,3 +11,22 @@
 	* `git commit -m 'my best commit'`
 5. Обновите репозиторий в вашем GitHub-аккаунте:
 	* `git push origin main`
+
+
+## Build Images
+
+```sh
+IMAGE_TAG=<tag> ./build.sh
+```
+
+## Publish Images
+
+```sh
+IMAGE_TAG=<tag> ./publish.sh
+```
+
+## Deploy services
+
+```sh
+IMAGE_TAG=<tag> PASSWORD=<password> ./deploy.sh
+```

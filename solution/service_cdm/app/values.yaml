@@ -9,7 +9,7 @@ image:
   repository: cr.yandex/crpdve0o1ht5lfmi93bo/cdm_service
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v2024-05-09-r1"
+  tag: "tag"
 
 containerPort: 5000
 
