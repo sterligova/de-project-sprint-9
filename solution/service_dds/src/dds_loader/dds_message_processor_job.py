@@ -43,7 +43,7 @@ class DdsMessageProcessor:
             load_dt = datetime.utcnow()
             load_src = 'orders_backend'
 
-            # Step 2. upsert dds.h_order, s_order_cost, s_order_status
+            # upsert dds.h_order, s_order_cost, s_order_status
             order_id = dct_msg['payload']['id']
             h_order_pk = uuid.uuid3(uuid.NAMESPACE_X500, str(order_id))
             order_dt = dct_msg['payload']['date']
@@ -60,7 +60,7 @@ class DdsMessageProcessor:
                 load_dt, 
                 load_src
             )
-            # Step 3. upsert h_user, s_user_names
+            # upsert h_user, s_user_names
             user_id = dct_msg['payload']['user']['id']
             h_user_pk = uuid.uuid3(uuid.NAMESPACE_X500, user_id)
             username = dct_msg['payload']['user']['name']
@@ -75,7 +75,7 @@ class DdsMessageProcessor:
                 load_dt, 
                 load_src
             )
-            # Step 3. upsert h_restaurant, s_restaurant_names
+            # upsert h_restaurant, s_restaurant_names
             restaurant_id = dct_msg['payload']['restaurant']['id']
             h_restaurant_pk = uuid.uuid3(uuid.NAMESPACE_X500, restaurant_id)
             restaurant_name = dct_msg['payload']['restaurant']['name']
@@ -97,7 +97,7 @@ class DdsMessageProcessor:
                 product_name = product['name']
                 dct_products[product_id] = product_name
             
-             # Step 5. upsert h_category
+             # upsert h_category
             for next_category in dct_categories:
                 h_category_pk = uuid.uuid3(uuid.NAMESPACE_X500, next_category)
                 self._dds_repository.category_upsert(
@@ -106,7 +106,7 @@ class DdsMessageProcessor:
                     load_dt, 
                     load_src)
 
-            # Step 10. upsert l_order_user
+            # upsert l_order_user
             # h_order_pk - defined at Step 2
             # h_user_pk - defined at Step 3 above
             hk_order_user_pk = uuid.uuid3(
@@ -135,7 +135,7 @@ class DdsMessageProcessor:
                     load_src
                 )
 
-                # Step 7. upsert l_product_category
+                # upsert l_product_category
                 # Runs INSIDE the loop of dct_products!
                 next_product_category = product['category']
                 next_h_category_pk = uuid.uuid3(uuid.NAMESPACE_X500, next_product_category)
@@ -152,7 +152,7 @@ class DdsMessageProcessor:
                     load_src
                 )
 
-                # Step 8. upsert l_product_restaurant
+                # upsert l_product_restaurant
                 # Runs INSIDE the loop of dct_products!
                 # h_restaurant_pk - defined in  Step 3
                 # h_product_pk - defined in  Step 6 
@@ -168,7 +168,7 @@ class DdsMessageProcessor:
                     load_src
                 )
 
-                # Step 9. upsert l_order_product
+                # upsert l_order_product
                 # Runs INSIDE the loop of dct_products!
                 # h_order_pk - see Step 2 above
                 # h_product_pk - see Step 7 above
@@ -200,7 +200,7 @@ class DdsMessageProcessor:
                             'category_name': str(next_product_category)
                         }
                     })
-            # ^ End of pruducts processing loop
+            
     
             # Send message to CDM
             msg = json.dumps(out_msg,ensure_ascii=False)
