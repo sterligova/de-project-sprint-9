@@ -13,20 +13,26 @@
 	* `git push origin main`
 
 
-## Build Images
+## Build Docker Images
 
 ```sh
 IMAGE_TAG=<tag> ./build.sh
 ```
 
-## Publish Images
+## Publish Docker Images to Yandex CR
 
 ```sh
 IMAGE_TAG=<tag> ./publish.sh
 ```
 
-## Deploy services
+## Deploy services to K8S
 
 ```sh
 IMAGE_TAG=<tag> PASSWORD=<password> ./deploy.sh
+```
+
+## Clean services
+
+```sh
+./clean.sh
 ```
